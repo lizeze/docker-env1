@@ -1,0 +1,35 @@
+FROM  archlinux:latest
+RUN  yes | pacman -Syu
+RUN  yes | pacman -Sy zsh && chsh -s /bin/zsh
+RUN yes | pacman -Sy git 
+# RUN  git config --global http.version HTTP/1.1   
+
+RUN yes |  pacman -Sy vim
+RUN yes |  pacman -Sy bc
+RUN  yes | pacman -Sy exa
+RUN git clone https://github.com/ohmyzsh/ohmyzsh.git /root/.oh-my-zsh && cp /root/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc   
+ADD passion.zsh-theme /root/.oh-my-zsh/themes/
+ADD  passion.zsh-theme  /root/.oh-my-zsh/themes
+ADD zshrc /root/.zshrc
+RUN  git config --global http.version HTTP/1.1
+RUN  yes | pacman -Sy exa
+RUN yes | pacman -S which
+# RUN \curl -sSL https://get.rvm.io | bash -s stable
+# RUN  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-/root/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+# RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-/root/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+## nodejs
+ADD nvm-0.39.1 /root/.nvm
+ADD bashrc /root/.bashrc
+RUN /bin/sh -c yes | pacman -S nodejs npm && npm config set registry=https://registry.npmmirror.com && corepack enable # buildkit
+# ENV PATH=/root/go/bin:/usr/local/rvm/bin:/root/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+# ENV PATH=/root/.nvm/bin
+# ruby
+# ADD rvm-1.29.12   /root/.rvm
+# RUN  \curl -sSL https://get.rvm.io | bash -s stable && echo "ruby_url=https://cache.ruby-china.com/pub/ruby" > /usr/local/rvm/user/db && echo 'gem: --no-document --verbose' > "$HOME/.gemrc" && rvm install ruby-3 # buildkit
+# RUN gpg --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+# RUN \curl -sSL https://get.rvm.io | bash -s stable
+
+
+
+#git config --global http.version HTTP/1.1
